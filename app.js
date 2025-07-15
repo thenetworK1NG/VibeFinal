@@ -73,6 +73,11 @@ loadFirebase(() => {
   const profileError = document.getElementById('profile-error');
   const navProfileAvatar = document.getElementById('nav-profile-avatar');
   const navSearch = document.getElementById('nav-search');
+  const navMenuBtn = document.getElementById('nav-menu-btn');
+  const navMenuDropdown = document.getElementById('nav-menu-dropdown');
+  const menuEditProfile = document.getElementById('menu-edit-profile');
+  const menuDownloadApp = document.getElementById('menu-download-app');
+  const menuLogout = document.getElementById('menu-logout');
 
   let isLoginMode = true;
 
@@ -173,16 +178,15 @@ loadFirebase(() => {
 
   // Hide nav elements initially
   navProfileAvatar.style.display = 'none';
-  profileBtn.style.display = 'none';
-  logoutBtn.style.display = 'none';
+  navMenuBtn.style.display = 'none';
+  navMenuDropdown.style.display = 'none';
   navSearch.style.display = 'none';
 
-  // Show user's avatar in nav after login
+  // Show nav menu after login
   function showApp(username) {
     authSection.style.display = 'none';
     document.getElementById('messenger-section').style.display = 'flex';
-    logoutBtn.style.display = 'block';
-    profileBtn.style.display = 'block';
+    navMenuBtn.style.display = 'inline-flex';
     navSearch.style.display = 'inline-block';
     // Show avatar in nav
     db.ref('users/' + username).once('value', snap => {
@@ -194,6 +198,53 @@ loadFirebase(() => {
     setOnlineStatus(username, true);
     loadUserList(username);
   }
+
+  // 3-dot menu logic
+  navMenuBtn.onclick = (e) => {
+    e.stopPropagation();
+    navMenuDropdown.style.display = navMenuDropdown.style.display === 'flex' ? 'none' : 'flex';
+  };
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (navMenuDropdown.style.display === 'flex') {
+      navMenuDropdown.style.display = 'none';
+    }
+  });
+  navMenuDropdown.onclick = (e) => e.stopPropagation();
+
+  // Menu actions
+  menuEditProfile.onclick = () => {
+    navMenuDropdown.style.display = 'none';
+    const currentUser = localStorage.getItem('viber-username');
+    if (!currentUser) return;
+    db.ref('users/' + currentUser).once('value', snap => {
+      const user = snap.val();
+      editUsernameInput.value = currentUser;
+      renderEditAvatarOptions(user.avatar || AVATARS[0]);
+      profileError.textContent = '';
+      profileModal.style.display = 'flex';
+    });
+  };
+  menuLogout.onclick = () => {
+    navMenuDropdown.style.display = 'none';
+    const username = localStorage.getItem('viber-username');
+    if (username) db.ref('users/' + username + '/online').set(false);
+    localStorage.removeItem('viber-username');
+    navProfileAvatar.style.display = 'none';
+    navMenuBtn.style.display = 'none';
+    navMenuDropdown.style.display = 'none';
+    navSearch.style.display = 'none';
+    location.reload();
+  };
+  menuDownloadApp.onclick = () => {
+    navMenuDropdown.style.display = 'none';
+    // For PWA, prompt install if available, else show instructions
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      alert('App is already installed!');
+    } else {
+      alert('To install the app, use your browser\'s "Add to Home Screen" or "Install App" option.');
+    }
+  };
 
   // User search filter
   navSearch.addEventListener('input', function() {
