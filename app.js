@@ -222,14 +222,51 @@ loadFirebase(() => {
     chatListener = null;
   }
 
-  // --- Show user's avatar in nav after login ---
+  // Dropdown menu logic
+  const navMenuBtn = document.getElementById('nav-menu-btn');
+  const navDropdown = document.getElementById('nav-dropdown');
+  const dropdownEditProfile = document.getElementById('dropdown-edit-profile');
+  const dropdownLogout = document.getElementById('dropdown-logout');
+  const dropdownDownloadApp = document.getElementById('dropdown-download-app');
+
+  // Hide dropdown initially
+  navDropdown.style.display = 'none';
+
+  // Open/close dropdown
+  navMenuBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (navDropdown.style.display === 'none') {
+      navDropdown.style.display = 'flex';
+    } else {
+      navDropdown.style.display = 'none';
+    }
+  };
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!navDropdown.contains(e.target) && e.target !== navMenuBtn) {
+      navDropdown.style.display = 'none';
+    }
+  });
+
+  // Hide menu when not logged in
+  function hideMenu() {
+    navMenuBtn.style.display = 'none';
+    navDropdown.style.display = 'none';
+  }
+  function showMenu() {
+    navMenuBtn.style.display = 'inline-block';
+  }
+  hideMenu();
+
+  // Show menu after login
   function showApp(username) {
     cleanupListeners();
     authSection.style.display = 'none';
     document.getElementById('messenger-section').style.display = 'flex';
-    logoutBtn.style.display = 'block';
-    profileBtn.style.display = 'block';
     navSearch.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+    profileBtn.style.display = 'none';
+    showMenu();
     db.ref('users/' + username).once('value', snap => {
       const avatar = (snap.val() && snap.val().avatar) || AVATARS[0];
       navProfileAvatar.src = avatar;
@@ -239,18 +276,44 @@ loadFirebase(() => {
     setOnlineStatus(username, true);
     loadUserList(username);
   }
-
-  // --- Logout logic ---
+  // Hide menu on logout
   logoutBtn.onclick = () => {
     const username = localStorage.getItem('viber-username');
     if (username) db.ref('users/' + username + '/online').set(false);
     localStorage.removeItem('viber-username');
     navProfileAvatar.style.display = 'none';
-    profileBtn.style.display = 'none';
-    logoutBtn.style.display = 'none';
     navSearch.style.display = 'none';
     cleanupListeners();
+    hideMenu();
     location.reload();
+  };
+  // Dropdown actions
+  dropdownEditProfile.onclick = () => {
+    navDropdown.style.display = 'none';
+    profileBtn.onclick();
+  };
+  dropdownLogout.onclick = () => {
+    navDropdown.style.display = 'none';
+    logoutBtn.onclick();
+  };
+
+  // --- PWA Install Prompt ---
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+  dropdownDownloadApp.onclick = async () => {
+    navDropdown.style.display = 'none';
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        deferredPrompt = null;
+      }
+    } else {
+      alert('To install the app, use your browser\'s menu: Add to Home Screen or Install App.');
+    }
   };
 
   // --- User search filter ---

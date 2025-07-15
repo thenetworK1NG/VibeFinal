@@ -14,8 +14,12 @@
       <input id="nav-search" type="text" placeholder="Search users..." />
       <div id="nav-actions">
         <img id="nav-profile-avatar" class="avatar" src="" style="display:none;" />
-        <button id="profile-btn">Edit Profile</button>
-        <button id="logout-btn" style="display:none;">Logout</button>
+        <button id="nav-menu-btn" aria-label="Menu">&#8942;</button>
+        <div id="nav-dropdown" class="dropdown-menu" style="display:none;">
+          <div class="dropdown-item" id="dropdown-edit-profile">Edit Profile</div>
+          <div class="dropdown-item" id="dropdown-download-app">Download App</div>
+          <div class="dropdown-item" id="dropdown-logout">Logout</div>
+        </div>
       </div>
     </nav>
   </header>
