@@ -212,9 +212,11 @@ loadFirebase(() => {
   logoutBtn.style.display = 'none';
   navSearch.style.display = 'none';
 
-  // --- Clean up listeners ---
+  // Declare listeners at the very top to avoid temporal dead zone errors
   let userListListener = null;
   let chatListener = null;
+
+  // --- Clean up listeners ---
   function cleanupListeners() {
     if (userListListener) db.ref('users').off('value', userListListener);
     if (chatListener) chatListener.off();
@@ -230,31 +232,31 @@ loadFirebase(() => {
   const dropdownDownloadApp = document.getElementById('dropdown-download-app');
 
   // Hide dropdown initially
-  navDropdown.style.display = 'none';
+  if (navDropdown) navDropdown.style.display = 'none';
 
   // Open/close dropdown
   navMenuBtn.onclick = (e) => {
     e.stopPropagation();
-    if (navDropdown.style.display === 'none') {
+    if (navDropdown && navDropdown.style.display === 'none') {
       navDropdown.style.display = 'flex';
-    } else {
+    } else if (navDropdown) {
       navDropdown.style.display = 'none';
     }
   };
   // Close dropdown on outside click
   document.addEventListener('click', (e) => {
-    if (!navDropdown.contains(e.target) && e.target !== navMenuBtn) {
+    if (navDropdown && !navDropdown.contains(e.target) && e.target !== navMenuBtn) {
       navDropdown.style.display = 'none';
     }
   });
 
   // Hide menu when not logged in
   function hideMenu() {
-    navMenuBtn.style.display = 'none';
-    navDropdown.style.display = 'none';
+    if (navMenuBtn) navMenuBtn.style.display = 'none';
+    if (navDropdown) navDropdown.style.display = 'none';
   }
   function showMenu() {
-    navMenuBtn.style.display = 'inline-block';
+    if (navMenuBtn) navMenuBtn.style.display = 'inline-block';
   }
   hideMenu();
 
