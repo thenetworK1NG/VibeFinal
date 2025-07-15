@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIBER</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav id="top-nav">
+      <span id="nav-logo">VIBER</span>
+      <input id="nav-search" type="text" placeholder="Search users..." />
+      <div id="nav-actions">
+        <img id="nav-profile-avatar" class="avatar" src="" style="display:none;" />
+        <button id="profile-btn">Edit Profile</button>
+        <button id="logout-btn" style="display:none;">Logout</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section id="auth-section">
+      <input type="text" id="username" placeholder="Enter your username">
+      <input type="password" id="password" placeholder="Enter your password">
+      <div id="avatar-select-row" style="display:none; margin-bottom:1rem;">
+        <label style="margin-right:0.5rem;">Choose avatar:</label>
+        <div id="avatar-select"></div>
+      </div>
+      <button id="login-btn">Login</button>
+      <button id="register-btn">Register</button>
+      <div id="auth-toggle">
+        <span id="toggle-to-register">Don't have an account? Register</span>
+        <span id="toggle-to-login" style="display:none;">Already have an account? Login</span>
+      </div>
+      <div id="auth-message"></div>
+    </section>
+    <section id="messenger-section" style="display:none;">
+      <aside id="user-list-container">
+        <ul id="user-list"></ul>
+      </aside>
+      <div id="chat-section" style="display:none;">
+        <div id="chat-with"></div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Message...">
+          <button id="send-btn">Send</button>
+        </div>
+      </div>
+    </section>
+    <div id="profile-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="close-profile-modal">&times;</span>
+        <h2>Edit Profile</h2>
+        <label for="edit-username">Username</label>
+        <input type="text" id="edit-username" />
+        <label>Avatar</label>
+        <div id="edit-avatar-select"></div>
+        <div id="profile-error"></div>
+        <button id="save-profile-btn">Save Changes</button>
+      </div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+</body>
+</html> 
