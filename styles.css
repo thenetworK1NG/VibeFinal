@@ -85,7 +85,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(90deg, #fcb045 0%, #fd1d1d 50%, #fd7e14 100%);
+  background: linear-gradient(90deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
   color: #fff;
   padding: 0.7rem 2rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
@@ -142,52 +142,6 @@ button:hover {
   background: #e0e0ff;
   color: #4b2fd6;
 }
-#nav-menu-btn {
-  background: none;
-  border: none;
-  color: #fcb045;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0 0.5rem;
-  border-radius: 50%;
-  transition: background 0.2s;
-  position: relative;
-  z-index: 11;
-}
-#nav-menu-btn:hover, #nav-menu-btn:focus {
-  background: #fff3e0;
-}
-.dropdown-menu {
-  position: absolute;
-  right: 0.5rem;
-  top: 3.2rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(252,176,69,0.13);
-  min-width: 160px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid #ffe0b2;
-  z-index: 100;
-}
-.dropdown-item {
-  padding: 1rem 1.2rem;
-  color: #fcb045;
-  font-size: 1.08rem;
-  cursor: pointer;
-  background: #fff;
-  border: none;
-  text-align: left;
-  transition: background 0.18s, color 0.18s;
-}
-.dropdown-item:hover {
-  background: #fff3e0;
-  color: #fd7e14;
-}
-#profile-btn, #logout-btn {
-  display: none !important;
-}
 
 /* Modal styles (Instagram-like) */
 .modal {
@@ -210,7 +164,7 @@ button:hover {
   border-radius: 22px;
   width: 100%;
   max-width: 350px;
-  box-shadow: 0 4px 32px rgba(252,176,69,0.12);
+  box-shadow: 0 4px 32px rgba(131,58,180,0.12);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -222,7 +176,7 @@ button:hover {
   right: 1rem;
   top: 1rem;
   font-size: 1.5rem;
-  color: #fcb045;
+  color: #833ab4;
   cursor: pointer;
 }
 #edit-avatar-select {
@@ -239,7 +193,7 @@ button:hover {
   transition: border 0.2s;
 }
 #edit-avatar-select img.selected {
-  border: 2px solid #fcb045;
+  border: 2px solid #833ab4;
 }
 #profile-error {
   color: #d32f2f;
@@ -255,7 +209,7 @@ button:hover {
   margin: 2.5rem auto 0 auto;
   background: #fff;
   border-radius: 24px;
-  box-shadow: 0 2px 24px rgba(252,176,69,0.07);
+  box-shadow: 0 2px 24px rgba(131,58,180,0.07);
   padding: 2rem 2rem;
   max-width: 900px;
   min-height: 500px;
@@ -266,7 +220,7 @@ button:hover {
   background: #fafafa;
   border-radius: 18px;
   padding: 1.5rem 0.5rem;
-  box-shadow: 0 1px 8px rgba(252,176,69,0.04);
+  box-shadow: 0 1px 8px rgba(131,58,180,0.04);
   height: 420px;
   overflow-y: auto;
   display: flex;
@@ -310,7 +264,7 @@ button:hover {
 #chat-with {
   margin: 0 0 0.5rem 0;
   font-size: 1.13rem;
-  color: #fcb045;
+  color: #833ab4;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -333,14 +287,14 @@ button:hover {
   background: #fff;
   max-width: 70%;
   word-break: break-word;
-  box-shadow: 0 1px 8px rgba(252,176,69,0.06);
+  box-shadow: 0 1px 8px rgba(131,58,180,0.06);
   font-size: 1.08rem;
   font-weight: 400;
   color: #222;
   position: relative;
 }
 .chat-message.me {
-  background: linear-gradient(90deg, #fcb045 0%, #fd1d1d 50%, #fd7e14 100%);
+  background: linear-gradient(90deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
   color: #fff;
   align-self: flex-end;
   box-shadow: 0 2px 12px rgba(252,176,69,0.10);
@@ -360,7 +314,7 @@ button:hover {
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
 }
 #send-btn {
-  background: linear-gradient(90deg, #fcb045 0%, #fd1d1d 50%, #fd7e14 100%);
+  background: linear-gradient(90deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
   color: #fff;
   border: none;
   padding: 0.95rem 1.7rem;
@@ -406,7 +360,7 @@ button:hover {
 }
 #profile-btn, #logout-btn {
   background: #fff;
-  color: #fcb045;
+  color: #833ab4;
   border: none;
   padding: 0.5rem 1.2rem;
   border-radius: 8px;
@@ -416,7 +370,7 @@ button:hover {
   transition: background 0.2s, color 0.2s;
 }
 #profile-btn:hover, #logout-btn:hover {
-  background: #fd7e14;
+  background: #fcb045;
   color: #fff;
 }
 .user-list-avatar-wrapper {
